@@ -18,7 +18,7 @@ if (isset($_SESSION['username'])) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Toda La'el Pagibig Mini Grocery - Login</title>
+    <title>SPCF - Cashless Program - Login</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -56,7 +56,7 @@ if (isset($_SESSION['username'])) {
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         <?php
                         echo $_SESSION['logInError'];
-                        unset($_SESSION['logInError']);
+                        // unset($_SESSION['logInError']);
                         ?>
                     </div>
                     <?php
@@ -69,21 +69,21 @@ if (isset($_SESSION['username'])) {
                         <div class="col-lg-12">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Toda La'el Pagibig Mini Grocery - Login</h1>
+                                    <h1 class="h4 text-gray-900 mb-4">SPCF - Cashless Program - Login</h1>
                                 </div>
                                 <form class="user" method="post" action="process_login.php">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="User Name" name="username">
+                                        <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="User Name" name="email">
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control" id="exampleInputPassword" placeholder="Password" name="password">
+                                        <input type="password" class="form-control" placeholder="Password" name="password">
                                     </div>
-                                    <div class="form-group">
+                                    <!-- <div class="form-group">
                                         <div class="custom-control custom-checkbox small">
                                             <input type="checkbox" class="custom-control-input" id="customCheck">
                                             <label class="custom-control-label" for="customCheck">Remember Me</label>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <button class="btn btn-primary btn-block" type="submit" name="login">Login</button>
                                 </form>
                             </div>

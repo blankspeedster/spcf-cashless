@@ -3,7 +3,7 @@
 <footer class="sticky-footer bg-white">
     <div class="container my-auto">
         <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Toda La'el Pagibig Mini Grocery <?php echo date("Y"); ?></span>
+            <span>Copyright &copy; SPCF - Cashless Program <?php echo date("Y"); ?></span>
             <br>
             <br>
             <img src="img/logo.png" style="width: 50px;">

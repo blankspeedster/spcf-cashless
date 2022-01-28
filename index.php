@@ -16,7 +16,7 @@ $date = date('Y-m-d');
 $getTotalTransactionsToday = mysqli_query($mysqli, "SELECT sum(amount_paid) AS total_amount_paid FROM transaction WHERE transaction_date = '$date' ");
 $newTotalTransactionsToday = $getTotalTransactionsToday->fetch_array();
 
-$getInventoryInStock = mysqli_query($mysqli, "SELECT count(id) AS id FROM inventory WHERE qty > 0 ");
+$getInventoryInStock = mysqli_query($mysqli, "SELECT count(id) AS id FROM inventory WHERE qty <= 10 ");
 $newInventoryInStock = $getInventoryInStock->fetch_array();
 
 $getAllTransactions = mysqli_query($mysqli, "SELECT * FROM transaction ORDER BY id DESC LIMIT 50");
@@ -29,7 +29,7 @@ $newTotalEarnings = $getTotalEarnings->fetch_array();
 $grandTotal = $newTotalEarnings['grand_total'] - $newTotalEarnings['total_earnings'];
 
 ?>
-<title>Dashboard - Toda La'el Pagibig Mini Grocery</title>
+<title>Dashboard - SPCF - Cashless Program</title>
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
 
@@ -98,7 +98,7 @@ $grandTotal = $newTotalEarnings['grand_total'] - $newTotalEarnings['total_earnin
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="font-weight-bold text-primary text-uppercase mb-1">Items in Stock:
+                                    <div class="font-weight-bold text-primary text-uppercase mb-1">Items Low in Stock:
                                     </div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
                                         <?php echo $newInventoryInStock['id']; ?>
@@ -123,7 +123,7 @@ $grandTotal = $newTotalEarnings['grand_total'] - $newTotalEarnings['total_earnin
                                     <div class="font-weight-bold text-primary text-uppercase mb-1">Total Expenses:
                                     </div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                        <?php echo $newTotalExpense['total_cost']; ?>
+                                        <?php echo "P ".number_format($newTotalExpense['total_cost'],2); ?>
                                     </div>
                                     <!-- End Progress -->
                                 </div>
@@ -145,7 +145,7 @@ $grandTotal = $newTotalEarnings['grand_total'] - $newTotalEarnings['total_earnin
                                     <div class="font-weight-bold text-primary text-uppercase mb-1">Total Earnings:
                                     </div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                        <?php echo $newTotalEarnings['total_earnings']; ?>
+                                        <?php echo "P ".number_format($newTotalEarnings['total_earnings'],2); ?>
                                     </div>
                                     <!-- End Progress -->
                                 </div>
@@ -159,7 +159,7 @@ $grandTotal = $newTotalEarnings['grand_total'] - $newTotalEarnings['total_earnin
                 <!-- Total Earnings -->
 
                 <!-- Total Credit -->
-                <div class="col-xl-4 col-md6 mb-4">
+                <div class="col-xl-4 col-md6 mb-4" style="display: none;">
                     <div class="card border-left-info shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
@@ -200,7 +200,7 @@ $grandTotal = $newTotalEarnings['grand_total'] - $newTotalEarnings['total_earnin
                                     <th>Full Name</th>
                                     <th>Total Amount</th>
                                     <th>Total Paid</th>
-                                    <th>Balance</th>
+                                    <!-- <th style="display: none;">Balance</th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -214,9 +214,9 @@ $grandTotal = $newTotalEarnings['grand_total'] - $newTotalEarnings['total_earnin
                                     <td><?php echo $newtAllTransactions['phone_num']; ?></td>
                                     <td><?php echo '₱'.number_format($newtAllTransactions['total_amount'],2); ?></td>
                                     <td><?php echo '₱'.number_format($newtAllTransactions['amount_paid'],2); ?></td>
-                                    <td style="color: <?php if($balance<0){echo 'red';}else{echo 'green';} ?>">
+                                    <!-- <td style="display: none; color: <?php if($balance<0){echo 'red';}else{echo 'green';} ?> ">
                                         <b><?php echo number_format($balance,2); ?></b>
-                                    </td>
+                                    </td> -->
                                 </tr>
                                 <?php } ?>
                             </tbody>

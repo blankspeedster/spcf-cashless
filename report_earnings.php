@@ -62,7 +62,7 @@ GROUP by i.id ");
             scroll-behavior: smooth !important;
         }
         .bg-gradient-primary {
-            background-color: #1e1e1f !important;
+            background-color: #142567 !important;
             background-image: none !important;
             background-image: none !important;
             background-size: cover !important;
@@ -156,11 +156,6 @@ GROUP by i.id ");
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
 
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
-
     </ul>
     <!-- End of Sidebar -->
 
@@ -224,7 +219,6 @@ GROUP by i.id ");
                                 <th>Description</th>
                                 <th>QTY</th>
                                 <th>Amount</th>
-                                <th>Earnings / Income</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -240,7 +234,6 @@ GROUP by i.id ");
                                     <td><?php echo ucwords($newTransactions['item_description']); ?></td>
                                     <td><?php echo number_format($newTransactions['qty']); ?></td>
                                     <td>₱<?php echo number_format($newTransactions['subtotal'],2); ?></td>
-                                    <td>₱<?php echo number_format($earnings,2); ?></td>
                                 </tr>
                             <?php } ?>
                             </tbody>
@@ -276,7 +269,7 @@ GROUP by i.id ");
     <footer class="sticky-footer bg-white">
         <div class="container my-auto">
             <div class="copyright text-center my-auto">
-                <span>Copyright &copy; Celine and Peter Store <?php echo date("Y"); ?></span>
+                <span>Copyright &copy; SPCF Cashless <?php echo date("Y"); ?></span>
                 <br>
                 <br>
                 <img src="img/logo.png" style="width: 50px;">

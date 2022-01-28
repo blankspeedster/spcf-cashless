@@ -1,20 +1,39 @@
 <?php
 include 'dbh.php';
-if (isset($_POST['login'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $checkAccount = $mysqli->query("SELECT * FROM accounts WHERE username='$username' AND password='$password'");
-    if (mysqli_num_rows($checkAccount) > 0) {
-        $newAccoount = $checkAccount->fetch_array();
+    //Process Login
+    if(isset($_POST['login'])){
+        $email = strtolower($_POST['email']);
+        $password = $_POST['password'];
 
-        $_SESSION['username'] = $newAccoount['username'];
-        $_SESSION['account_id'] = $newAccoount['id'];
-        header("location: index.php");
+        $checkUser = $mysqli->query("SELECT * FROM accounts WHERE email='$email' ");
+
+        if(mysqli_num_rows($checkUser) <= 0){
+            $_SESSION['loginError'] = "Email not found. Please try again.";
+            header("location: login.php?email=".$email);
+        }
+        else{
+            $newCheckUser = $checkUser->fetch_array();
+            $hashPassword = $newCheckUser['password'];
+            $verify = password_verify($password, $hashPassword);
+            if ($verify){
+                if($newCheckUser["validated"]==0){
+                    $_SESSION['loginError'] = "Account is pending validation. Please wait for a while.";
+                    header("location: sign-in.php?email=".$email);
+                }
+                else{
+                    $_SESSION['username'] = $newCheckUser["username"];
+                    $_SESSION['user_id'] = $newCheckUser["id"];
+                    $_SESSION['email'] = $newCheckUser["email"];
+                    $_SESSION['firstname'] = $newCheckUser["firstname"];
+                    $_SESSION['lastname'] = $newCheckUser["lastname"];
+                    $_SESSION['role'] = $newCheckUser["role"];
+                    header("location: index.php");
+                }
+
+            } else {
+                $_SESSION['loginError'] = "Incorrect password!";
+                header("location: loginn.php?email=".$email);
+            }
+        }
     }
-    else
-        {
-        $_SESSION['logInError'] = "Credentials do not match our records. Login failed. Please try again";
-        header("location: login.php");
-    }
-}
 ?>

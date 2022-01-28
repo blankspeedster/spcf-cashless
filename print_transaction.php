@@ -27,7 +27,7 @@
 ?>
 <body>
         <div class="ticket">
-            <center>Toda La'el Pagibig Mini Grocery</center>
+            <center>SPCF - Cashless Program</center>
             <p class="centered">Official Receipt
                 <!-- <br>Address line 1
                 <br>Address line 2</p> -->

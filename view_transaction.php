@@ -18,7 +18,7 @@ $balance = $newTransaction['amount_paid'] - $newTransaction['total_amount'];
 
 $getTransactionLists = mysqli_query($mysqli, "SELECT * FROM transaction_lists WHERE transaction_id = '$id' ");
 ?>
-<title>View Transaction - Toda La'el Pagibig Mini Grocery</title>
+<title>View Transaction - SPCF - Cashless Program</title>
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
 
