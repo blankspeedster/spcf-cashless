@@ -68,7 +68,6 @@ if(!isset($_GET['item_id'])){
                                 <thead>
                                 <tr>
                                     <th width="5%">ID</th>
-                                    <th width="15%">Barcode</th>
                                     <th width="15%">Code</th>
                                     <th width="20%">Name</th>
                                     <th width="10%">Current stock</th>
@@ -80,7 +79,6 @@ if(!isset($_GET['item_id'])){
                                 <tbody>
                                 <tr>
                                     <td><input type="text" name="item_id" class="form-control" value="<?php echo $newItems['id']; ?>" required readonly></td>
-                                    <td><input type="text" name="barcode" class="form-control" value="<?php echo $newItems['barcode']; ?>" required></td>
                                     <td><input type="text" name="item_code" class="form-control" value="<?php echo $newItems['item_code']; ?>" required></td>
                                     <td><input type="text" name="item_name" class="form-control" value="<?php echo $newItems['item_name']; ?>" required></td>
                                     <td><input type="number" class="form-control" name="old_stock" placeholder="0" value="<?php echo $newItems['qty']; ?>" readonly></td>
@@ -90,6 +88,7 @@ if(!isset($_GET['item_id'])){
                                 </tr>
                                 </tbody>
                             </table>
+                            <input style="visibility: hidden;" type="text" name="barcode" class="form-control" value="<?php echo $newItems['barcode']; ?>" required>
                             <button class="float-right btn btn-sm btn-primary m-1" name="add_stock" type="submit"><i class="far fa-save" ></i> Add / Update Stock</button>
                             <a href="<?php echo $getURI;?>" class="btn btn-danger btn-sm m-1 float-right"><i class="fas as fa-sync"></i> Cancel</a>
                         </form>
