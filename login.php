@@ -1,10 +1,8 @@
 <?php
-if (!isset($_SESSION)) {
-    session_start();
-}
+include("dbh.php");
 
-if (isset($_SESSION['username'])) {
-    header('location: ../spcf-device-loan');
+if (isset($_SESSION['user_id'])) {
+    header('location: ../spcf-cashless');
 }
 ?>
 <!DOCTYPE html>
@@ -50,13 +48,13 @@ if (isset($_SESSION['username'])) {
             <div class="card o-hidden border-0 shadow-lg my-5">
                 <!-- Alert Here -->
                 <?php
-                if (isset($_SESSION['logInError'])) {
+                if (isset($_SESSION['messageLogin'])) {
                     ?>
                     <div class="alert alert-danger alert-dismissible">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         <?php
-                        echo $_SESSION['logInError'];
-                        // unset($_SESSION['logInError']);
+                        echo $_SESSION['messageLogin'];
+                        unset($_SESSION['messageLogin']);
                         ?>
                     </div>
                     <?php
@@ -73,7 +71,7 @@ if (isset($_SESSION['username'])) {
                                 </div>
                                 <form class="user" method="post" action="process_login.php">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="User Name" name="email">
+                                        <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="User Name" name="email" value="<?php if(isset($_GET['email'])){ echo  $_GET['email']; } ?>">
                                     </div>
                                     <div class="form-group">
                                         <input type="password" class="form-control" placeholder="Password" name="password">

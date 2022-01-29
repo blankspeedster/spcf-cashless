@@ -2,11 +2,10 @@
 
 include ('dbh.php');
 
-$getURI = $_SESSION['getURI'];
-
 $date = date_default_timezone_set('Asia/Manila');
-$date = date('Y-m-d');
+$date = date('Y-m-d H:i:s');
 
+//Add Item
 if(isset($_POST['add_item'])){
     $itemCtrl = $_POST['itemCtrl'];
     $itemCounter = ++$itemCtrl;
@@ -26,6 +25,7 @@ if(isset($_POST['add_item'])){
     header("location: ".$getURI);
 }
 
+//Add item barcode
 if(isset($_POST['add_item_barcode']))
 {    
     $itemBarCodeCounter    = $_POST['itemBarCodeCtrl'];
@@ -90,20 +90,34 @@ if(isset($_POST['add_item_barcode']))
     header("location: ".$getURI); 
 }
 
-if(isset($_POST['save'])){
+// if(isset($_POST['save'])){
 
-    
     if(isset($_POST['item_id']))
     {
-        $countItems             = count($_POST['item_id']); 
-        $customer_name          = mysqli_escape_string($mysqli, $_POST['full_name']);
-        $customer_address       = mysqli_escape_string($mysqli, $_POST['address']);
-        $customer_phone         = mysqli_escape_string($mysqli, $_POST['phone_num']);
-        $customer_cash          = mysqli_escape_string($mysqli, $_POST['amount_paid']);
+        // $countItems             = count($_POST['item_id']);
+        // $customer_name          = mysqli_escape_string($mysqli, $_POST['full_name']);
+        // $customer_address       = mysqli_escape_string($mysqli, $_POST['address']);
+        // $customer_phone         = mysqli_escape_string($mysqli, $_POST['phone_num']);
+        // $customer_cash          = mysqli_escape_string($mysqli, $_POST['amount_paid']);
+
+        $rfid = mysqli_escape_string($mysqli, $_POST['rfid']);
+
+        $accounts = $mysqli->query("SELECT *, a.id AS account_id FROM cards c
+        JOIN accounts a
+        ON c.user_id = a.id
+        WHERE c.tag_number = '$rfid' ") or die ($mysqli->error);
+
+        $account = $accounts->fetch_array();
+        $countItems             = count($_POST['item_id']);
+        $customer_name          = $account["first_name"]." ".$account["last_name"];
+        $customer_address       = "NA";
+        $customer_phone         = $account["phone_number"];
+        $account_id = $account["account_id"];
+        $current_balance = $account["balance"];
+
         $totalTransactionAmount = 0;
         $transactionID          = $_POST['transactionID'];
-    
-    
+        
         for($i=0; $i<$countItems; $i++)
         {
            
@@ -130,23 +144,39 @@ if(isset($_POST['save'])){
     
             $totalTransactionAmount += $subTotal; 
         }
-    
-        
+        //Insert into buy transaction
         $mysqli->query("INSERT INTO transaction 
-                            (id, full_name, transaction_date, address, phone_num, total_amount, amount_paid) 
-                            VALUES('$transactionID', '$customer_name', '$date', '$customer_address', '$customer_phone', '$totalTransactionAmount', '$customer_cash')") 
+                            (id, full_name, transaction_date, address, phone_num, total_amount, amount_paid, account_id) 
+                            VALUES('$transactionID', '$customer_name', '$date', '$customer_address', '$customer_phone', '$totalTransactionAmount', '$totalTransactionAmount', '$account_id')") 
                             or die(mysqli_error($mysqli));
-    
+        
+
+        //Update Balance
+        $current_balance = $current_balance -  $totalTransactionAmount;
+        $mysqli->query("UPDATE accounts SET balance = '$current_balance' WHERE id = '$account_id' ") 
+        or die(mysqli_error($mysqli));                
+
+        //Insert into transaction logs
+        $currentDateTime = date_default_timezone_set('Asia/Manila');
+        $currentDateTime = date('Y-m-d H:i:s');
+        $mysqli->query("INSERT INTO transaction_logs (account_id, kind, amount, created_at) VALUES('$account_id', 'buy','$totalTransactionAmount', '$currentDateTime') ") 
+        or die(mysqli_error($mysqli));
+        
+
         $_SESSION['message']    = "Transaction has been saved!";
         $_SESSION['msg_type']   = "success";
         header('location: print_transaction.php?id='.$transactionID);
     }
-    else 
+    else
     {
         $_SESSION['message']    = "No Items present for Transaction!";
         $_SESSION['msg_type']   = "danger";
         header('location: transactions.php'); 
     }
+
+
+
+
 
 
   /*   $itemCtrl = $_POST['itemCtrl'];
@@ -186,7 +216,7 @@ if(isset($_POST['save'])){
     $_SESSION['msg_type'] = "success";
 
     header('location: transactions.php');  */
-}
+// }
 
 if(isset($_POST['update_payment'])){
     $transaction_id = $_POST['transaction_id'];
@@ -202,6 +232,8 @@ if(isset($_POST['update_payment'])){
     header('location: '.$getURI);
 }
 
+
+//Delete Transaction
 if(isset($_GET['delete'])){
     $id = $_GET['delete'];
     $mysqli->query(" DELETE FROM transaction WHERE id = '$id' ") or die(mysqli_error($mysqli));

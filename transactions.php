@@ -33,6 +33,13 @@ if (!isset($_GET['itemBarCodeCtrl'])) {
 
 <link href="css/bootstrap.min.css" rel="stylesheet" />
 <link href="css/bootstrap-select.min.css" rel="stylesheet" />
+
+<!--Vue Support-->
+<script src="./js/vue/vue.min.js"></script>
+
+<!-- Axios -->
+<script src="./js/vue/axios.min.js"></script>
+
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
 
@@ -42,7 +49,7 @@ if (!isset($_GET['itemBarCodeCtrl'])) {
         include('topbar.php');
         ?>
         <!-- Begin Page Content -->
-        <div class="container-fluid">
+        <div class="container-fluid" id="vueApp">
 
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -70,6 +77,15 @@ if (!isset($_GET['itemBarCodeCtrl'])) {
             <?php endif ?>
             <!-- End Alert here -->
 
+            <!-- Alert here -->
+            <div v-if="showWarning" class="alert alert-warning alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{ alertMessage }}
+            </div>
+            <!-- End Alert here -->
+
+
+
             <!-- Add Transaction -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -77,7 +93,7 @@ if (!isset($_GET['itemBarCodeCtrl'])) {
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <form method="post" action="process_transaction.php">
+                        <form mame="transactionForm" id="transactionForm" method="post" action="process_transaction.php" @submit.prevent="checkAccountBalance">
                             <!-- <table id="table_items_barcode" class="table" style="display: none;">
                                 <thead>
                                     <tr>
@@ -175,13 +191,13 @@ if (!isset($_GET['itemBarCodeCtrl'])) {
                             <span class="float-right"><b>TOTAL: ₱ <span id="total_amount">0.00</span></b></span>
                             <br>
                             <br>
-                            <hr>
+                            <!-- <hr>
                             <div class="text-right font-weight-bold">
                                 GRAND TOTAL : ₱ <span id="grand_total">0.00</span>
-                            </div>
+                            </div> -->
                             <br>
                             <br>
-                            <table class="table" width="100%" cellspacing="0">
+                            <!-- <table class="table" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
                                         <th width="10%;">Control ID</th>
@@ -193,7 +209,7 @@ if (!isset($_GET['itemBarCodeCtrl'])) {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><input type="text" class="form-control" name="transactionID" value="<?php echo ++$lastTransactionID; ?>" readonly></td>
+                                        <td><input type="text" class="form-control" name="transactionID" value="<?php //echo ++$lastTransactionID; ?>" readonly></td>
                                         <td><input type="text" class="form-control" name="full_name" placeholder="ex: Juan Crus" value="Juan Cruz"></td>
                                         <td>
                                             <textarea class="form-control" name="address" style="min-height: 100px;">Angeles City</textarea>
@@ -202,10 +218,13 @@ if (!isset($_GET['itemBarCodeCtrl'])) {
                                         <td><input type="number" step="0.01" class="form-control" name="amount_paid" required></td>
                                     </tr>
                                 </tbody>
-                            </table>
-                            <br />
+                            </table> -->
+                            Put the cursor here and tap the RFID to initiate the transaction
+                            <input type="password" class="form-control" v-model="rfid" name="rfid" value="">
+                            <br/>
                             <center>
-                                <button class="btn btn-sm btn-primary m-1" name="save" type="submit"><i class="far fa-save"></i> Save</button>
+                                <input type="text" class="form-control" name="transactionID" value="<?php echo ++$lastTransactionID; ?>" readonly style="visibility: hidden;">
+                                <button class="btn btn-sm btn-primary m-1" name="save"><i class="far fa-save"></i> Confirm Transaction</button>
                                 <a href="transactions.php" class="btn btn-danger btn-sm m-1"><i class="fas as fa-sync"></i> Cancel</a>
                             </center>
                         </form>
@@ -335,6 +354,50 @@ if (!isset($_GET['itemBarCodeCtrl'])) {
     </div>
 </div>
 
+<script>
+    new Vue({
+        el: "#vueApp",
+        data() {
+            return {
+                rfid: null,
+                showWarning: false,
+                alertMessage: "",
+            }
+        },
+        methods: {
+            async checkAccountBalance(){
+                console.log('Check Balance!');
+                const totalItem = localStorage.getItem("totalItem");
+                const options = {
+                    method: "POST",
+                    url: "process_card.php?checkAccountBalance="+this.rfid+"&currentTotal="+totalItem,
+                    headers: {
+                        Accept: "application/json",
+                    },
+                };
+                await axios
+                    .request(options)
+                    .then((response) => {
+                        console.log(response.data);
+                        if(response.data.code === '2'){
+                            document.getElementById("transactionForm").submit();
+                        }
+                        else{
+                            this.showWarning = true;
+                            this.alertMessage = response.data.message;
+                        }
+                    })
+                    .catch((error) => {
+                    });
+                // document.getElementById("transactionForm").submit();
+            }
+        },
+        mounted() {
+            console.log("Vue!");
+            localStorage.setItem("totalItem",0);
+        }
+    });
+</script>
 <!-- Page Behaviour -->
 <script src="./transaction_page.js"></script>
 

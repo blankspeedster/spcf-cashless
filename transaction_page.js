@@ -251,8 +251,11 @@ $(document).ready(() =>
     {
         const totalBarcode    = $('#total_amount_barcode').html();
         const totalItem       = $('#total_amount').html();
-        const totalGrand      = (+totalBarcode + +totalItem);  
 
-        $('#grand_total').html(totalGrand); 
+        localStorage.setItem("totalItem",totalItem);
+
+        // const totalGrand      = (+totalBarcode + +totalItem);
+
+        // $('#grand_total').html(totalItem);
     }
 });

@@ -70,7 +70,7 @@ $user = $users->fetch_array();
             <!-- End Enroll a card -->
 
 
-            <!-- Enroll a card -->
+            <!-- List of Cards-->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">List of Cards <?php echo $user["first_name"] . " " . $user["last_name"]; ?></h6>
@@ -123,7 +123,42 @@ $user = $users->fetch_array();
                     </div>
                 </div>
             </div>
-            <!-- End Enroll a card -->
+            <!-- List of Cards -->
+
+
+            <!-- List of Cards-->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Manual Cash in</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <form action="process_card.php" method="post">
+                            <div class="row m-1">
+                                <div class="col-xl-12">
+                                    To manually cash in, please enter the desired amount. This is manual cashin.
+                                    <br>
+                                    <input type="number" step="0.001" class="form-control" name="amount" id="amount" required>
+                                </div>
+                                <input type="text" style="visibility: hidden;" name="user_id" id="user_id" value="<?php echo $student_id; ?>">
+                                <div class="col-md-12">
+                                    <center>
+                                    <button class="btn btn-info btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Add Balance
+                                    </button>
+                                    <div class="dropdown-menu p-2" aria-labelledby="dropdownMenuButton btn-sm">
+                                        Please check the amount if it is correct.<br />
+                                        <a href="#" class='btn btn-danger btn-sm'><i class="far fa-window-close"></i> Cancel</a>
+                                        <button type="submit" class='btn btn-success btn-sm' name="add_balance">Confirm Amount</a>
+                                    </div>
+                                    </center>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- List of Cards -->
 
 
         </div>

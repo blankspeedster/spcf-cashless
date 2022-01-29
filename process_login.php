@@ -8,7 +8,7 @@ include 'dbh.php';
         $checkUser = $mysqli->query("SELECT * FROM accounts WHERE email='$email' ");
 
         if(mysqli_num_rows($checkUser) <= 0){
-            $_SESSION['loginError'] = "Email not found. Please try again.";
+            $_SESSION['messageLogin'] = "Email not found. Please try again.";
             header("location: login.php?email=".$email);
         }
         else{
@@ -17,7 +17,7 @@ include 'dbh.php';
             $verify = password_verify($password, $hashPassword);
             if ($verify){
                 if($newCheckUser["validated"]==0){
-                    $_SESSION['loginError'] = "Account is pending validation. Please wait for a while.";
+                    $_SESSION['messageLogin'] = "Account is pending validation. Please wait for a while.";
                     header("location: sign-in.php?email=".$email);
                 }
                 else{
@@ -31,7 +31,7 @@ include 'dbh.php';
                 }
 
             } else {
-                $_SESSION['loginError'] = "Incorrect password!";
+                $_SESSION['messageLogin'] = "Incorrect password!";
                 header("location: loginn.php?email=".$email);
             }
         }
