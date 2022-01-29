@@ -21,7 +21,7 @@ include 'dbh.php';
                     header("location: sign-in.php?email=".$email);
                 }
                 else{
-                    $_SESSION['username'] = $newCheckUser["username"];
+                    $_SESSION['username'] = $newCheckUser["first_name"]." ".$newCheckUser["last_name"];
                     $_SESSION['user_id'] = $newCheckUser["id"];
                     $_SESSION['email'] = $newCheckUser["email"];
                     $_SESSION['firstname'] = $newCheckUser["firstname"];
