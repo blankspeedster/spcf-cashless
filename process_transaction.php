@@ -159,13 +159,14 @@ if(isset($_POST['add_item_barcode']))
         //Insert into transaction logs
         $currentDateTime = date_default_timezone_set('Asia/Manila');
         $currentDateTime = date('Y-m-d H:i:s');
-        $mysqli->query("INSERT INTO transaction_logs (account_id, kind, amount, created_at) VALUES('$account_id', 'buy','$totalTransactionAmount', '$currentDateTime') ") 
+        $mysqli->query("INSERT INTO transaction_logs (account_id, kind, amount, created_at, current_balance) VALUES('$account_id', 'buy','$totalTransactionAmount', '$currentDateTime', '$current_balance') ") 
         or die(mysqli_error($mysqli));
         
 
         $_SESSION['message']    = "Transaction has been saved!";
         $_SESSION['msg_type']   = "success";
-        header('location: print_transaction.php?id='.$transactionID);
+        // header('location: print_transaction.php?id='.$transactionID);
+        header('location: transactions.php');
     }
     else
     {

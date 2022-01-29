@@ -26,7 +26,7 @@ include 'dbh.php';
                     $_SESSION['email'] = $newCheckUser["email"];
                     $_SESSION['firstname'] = $newCheckUser["firstname"];
                     $_SESSION['lastname'] = $newCheckUser["lastname"];
-                    $_SESSION['role'] = $newCheckUser["role"];
+                    $_SESSION['role'] = $newCheckUser["role_id"];
                     header("location: index.php");
                 }
 

@@ -53,7 +53,7 @@
         $mysqli->query("INSERT INTO cash_in_transaction(account_id, created_at, amount) VALUES('$user_id','$currentDateTime','$amount')  ") or die ($mysqli->error);
 
         //Insert into transaction logs
-        $mysqli->query("INSERT INTO transaction_logs (account_id, kind, amount, created_at) VALUES('$user_id', 'cashin','$amount', '$currentDateTime') ") 
+        $mysqli->query("INSERT INTO transaction_logs (account_id, kind, amount, created_at, current_balance) VALUES('$user_id', 'cashin','$amount', '$currentDateTime', '$newAmount') ") 
         or die(mysqli_error($mysqli));
 
         $_SESSION['msg_type'] = "success";

@@ -6,6 +6,11 @@ if (!isset($_SESSION)) {
 if (!isset($_SESSION['user_id'])) {
     header("location: login.php");
 }
+
+if($_SESSION['role'] == "2"){
+    header("location: ./student/index.php");
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +29,7 @@ if (!isset($_SESSION['user_id'])) {
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <link rel="icon" href="img/icon.ico" type="image/gif" sizes="16x16">
+    <link rel="icon" href="img/logo.png" type="image/gif" sizes="16x16">
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 
@@ -56,7 +61,6 @@ if (!isset($_SESSION['user_id'])) {
 </head>
 
 <body id="page-top">
-
     <!-- Page Wrapper -->
     <div id="wrapper">
 
