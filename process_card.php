@@ -2,6 +2,7 @@
     include("dbh.php");
     $currentDateTime = date_default_timezone_set('Asia/Manila');
     $currentDateTime = date('Y-m-d H:i:s');
+    
     //Process Add Card
     if(isset($_POST['save_rfid'])){
         $user_id = $_POST['user_id'];
@@ -16,7 +17,7 @@
             $mysqli->query(" INSERT INTO cards (user_id, tag_number) VALUES('$user_id','$tag_number') ") or die ($mysqli->error);
 
             $_SESSION['msg_type'] = "success";
-            $_SESSION['message'] = "Card has been deleted!";
+            $_SESSION['message'] = "Card has been added!";
 
             header("location: add_card.php?id=".$user_id);
         }

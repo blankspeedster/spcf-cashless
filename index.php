@@ -115,7 +115,7 @@ $grandTotal = $newTotalEarnings['grand_total'] - $newTotalEarnings['total_earnin
                 <!-- Items in Stock -->
 
                 <!-- Total Expenses -->
-                <div class="col-xl-4 col-md6 mb-4">
+                <div class="col-xl-4 col-md6 mb-4" style="display: none;">
                     <div class="card border-left-danger shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
