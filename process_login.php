@@ -32,7 +32,7 @@ include 'dbh.php';
 
             } else {
                 $_SESSION['messageLogin'] = "Incorrect password!";
-                header("location: loginn.php?email=".$email);
+                header("location: login.php?email=".$email);
             }
         }
     }

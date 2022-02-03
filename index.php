@@ -6,7 +6,7 @@ $protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERV
 $getURI = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 $_SESSION['getURI'] = $getURI;
 
-$getTotalTransactions = mysqli_query($mysqli, "SELECT count(id) AS id FROM transaction");
+$getTotalTransactions = mysqli_query($mysqli, "SELECT count(id) AS id FROM transaction WHERE DATE(`transaction_date`) = CURDATE()");
 $newTotalTransactions = $getTotalTransactions->fetch_array();
 //echo $newTotalTransactions['id'];
 
@@ -24,7 +24,7 @@ $getAllTransactions = mysqli_query($mysqli, "SELECT * FROM transaction ORDER BY 
 $getTotalExpense = mysqli_query($mysqli, "SELECT sum(total_cost) AS total_cost FROM inventory_cost");
 $newTotalExpense = $getTotalExpense->fetch_array();
 
-$getTotalEarnings = mysqli_query($mysqli, "SELECT sum(amount_paid) AS total_earnings, sum(total_amount) AS grand_total FROM transaction");
+$getTotalEarnings = mysqli_query($mysqli, "SELECT sum(amount_paid) AS total_earnings, sum(total_amount) AS grand_total FROM transaction WHERE DATE(`transaction_date`) = CURDATE()");
 $newTotalEarnings = $getTotalEarnings->fetch_array();
 $grandTotal = $newTotalEarnings['grand_total'] - $newTotalEarnings['total_earnings'];
 
@@ -71,7 +71,7 @@ $grandTotal = $newTotalEarnings['grand_total'] - $newTotalEarnings['total_earnin
                 <!-- Total Transactions -->
 
                 <!-- Total Sales -->
-                <div class="col-xl-4 col-md6 mb-4">
+                <div class="col-xl-4 col-md6 mb-4" style="display: none;">
                     <div class="card border-left-secondary shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
