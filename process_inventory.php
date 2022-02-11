@@ -4,6 +4,8 @@
     $date   = date_default_timezone_set('Asia/Manila');
     $date   = date('Y-m-d');
 
+    $user_id = $_SESSION['user_id'];
+
     if(isset($_POST['save'])){
         $item_id      = mysqli_real_escape_string($mysqli, $_POST['item_id']);
         $barcode      = mysqli_real_escape_string($mysqli, $_POST['barcode']);
@@ -15,7 +17,7 @@
         $total_cost   = mysqli_real_escape_string($mysqli, $_POST['total_cost']);
         $description  = mysqli_real_escape_string($mysqli, $_POST['description']);
 
-        $mysqli->query("INSERT INTO inventory (id, barcode, item_code, item_name, qty, item_description, item_price, market_original_price) VALUES('$item_id', '$barcode', '$item_code','$item_name', '$qty', '$description', '$price', '$market_price')") or  die(mysqli_error($mysqli));
+        $mysqli->query("INSERT INTO inventory (id, barcode, item_code, item_name, qty, item_description, item_price, market_original_price, vendor_id) VALUES('$item_id', '$barcode', '$item_code','$item_name', '$qty', '$description', '$price', '$market_price', '$user_id')") or  die(mysqli_error($mysqli));
         $mysqli->query("INSERT INTO inventory_cost (item_id, total_cost, date_added) VALUES('$item_id', '$total_cost', '$date')") or  die(mysqli_error($mysqli));
 
         $_SESSION['message']  = "An item has been added!";

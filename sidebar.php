@@ -98,7 +98,7 @@ if($_SESSION['role'] == "2"){
             </li>
 
             <!-- Nav Item - Users -->
-            <li class="nav-item">
+            <li class="nav-item" style="display: <?php if($_SESSION['role']==3){echo "none;";} ?>;">
                 <a class="nav-link" href="users.php">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Users</span></a>
@@ -112,8 +112,23 @@ if($_SESSION['role'] == "2"){
             </li>
 
 
-            <!-- Nav Item - Reports -->
+            <!-- Nav Item - Cashout -->
+            <li class="nav-item" style="display: <?php if($_SESSION['role']==3){echo "none;";} ?>;">
+                <a class="nav-link" href="cashout.php">
+                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>
+                    <span>Cashout Requests</span></a>
+            </li>
+
+            <!-- Nav Item - Cashout -->
             <li class="nav-item">
+                <a class="nav-link" href="cashout_initiate.php">
+                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>
+                    <span>Initiate Cashout</span></a>
+            </li>
+
+
+            <!-- Nav Item - Reports -->
+            <li class="nav-item" style="display: <?php if($_SESSION['role']==3){echo "none;";} ?>;">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Reports</span>

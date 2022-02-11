@@ -7,13 +7,15 @@ $protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERV
 $getURI = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 $_SESSION['getURI'] = $getURI;
 
+$user_id = $_SESSION['user_id'];
+
 $getLastItem = mysqli_query($mysqli, "SELECT * FROM inventory");
 $lastItemID = 0;
 while ($newLastItem = mysqli_fetch_array($getLastItem)) {
     $lastItemID = $newLastItem['id'];
 }
 
-$getItems = mysqli_query($mysqli, "SELECT * FROM inventory");
+$getItems = mysqli_query($mysqli, "SELECT * FROM inventory WHERE vendor_id = '$user_id' ");
 
 ?>
 <title>Inventory - SPCF - Cashless Program</title>

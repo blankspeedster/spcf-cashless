@@ -4,6 +4,7 @@ include ('dbh.php');
 
 $date = date_default_timezone_set('Asia/Manila');
 $date = date('Y-m-d H:i:s');
+$user_id = $_SESSION['user_id'];
 
 //Add Item
 if(isset($_POST['add_item'])){
@@ -131,8 +132,8 @@ if(isset($_POST['add_item_barcode']))
             if($item_quantity > 0)
             {
                 $mysqli->query("INSERT INTO transaction_lists 
-                                    (transaction_id, item_id, qty, adjusted_price, transaction_date, subtotal) 
-                                    VALUES('$transactionID', '$item_id', '$item_quantity', '$item_price','$date','$subTotal' )"
+                                    (transaction_id, item_id, qty, adjusted_price, transaction_date, subtotal, vendor_id) 
+                                    VALUES('$transactionID', '$item_id', '$item_quantity', '$item_price','$date','$subTotal', '$user_id' )"
                                     ) or die(mysqli_error($mysqli)
                                 );
         
@@ -146,8 +147,8 @@ if(isset($_POST['add_item_barcode']))
         }
         //Insert into buy transaction
         $mysqli->query("INSERT INTO transaction 
-                            (id, full_name, transaction_date, address, phone_num, total_amount, amount_paid, account_id) 
-                            VALUES('$transactionID', '$customer_name', '$date', '$customer_address', '$customer_phone', '$totalTransactionAmount', '$totalTransactionAmount', '$account_id')") 
+                            (id, full_name, transaction_date, address, phone_num, total_amount, amount_paid, account_id, vendor_id) 
+                            VALUES('$transactionID', '$customer_name', '$date', '$customer_address', '$customer_phone', '$totalTransactionAmount', '$totalTransactionAmount', '$account_id', '$user_id')") 
                             or die(mysqli_error($mysqli));
         
 
@@ -162,6 +163,16 @@ if(isset($_POST['add_item_barcode']))
         $mysqli->query("INSERT INTO transaction_logs (account_id, kind, amount, created_at, current_balance) VALUES('$account_id', 'buy','$totalTransactionAmount', '$currentDateTime', '$current_balance') ") 
         or die(mysqli_error($mysqli));
         
+        //Get total balance of the vendor
+        $getTotalBalance = mysqli_query($mysqli, "SELECT * FROM accounts WHERE id = '$user_id' ");
+        $totalBalance = $getTotalBalance->fetch_array();
+        $balance = $totalBalance["balance"];
+        $newBalance = $balance + $totalTransactionAmount;
+
+        //update total balance
+        $mysqli->query("UPDATE accounts SET balance = '$newBalance' WHERE id = '$user_id'");
+
+
 
         $_SESSION['message']    = "Transaction has been saved!";
         $_SESSION['msg_type']   = "success";

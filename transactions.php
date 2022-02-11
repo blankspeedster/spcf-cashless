@@ -7,8 +7,10 @@ $protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERV
 $getURI = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 $_SESSION['getURI'] = $getURI . '?';
 
-$getLastTransaction = mysqli_query($mysqli, "SELECT * FROM transaction");
-$getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction ORDER BY transaction_date DESC LIMIT 10");
+$user_id = $_SESSION['user_id'];
+
+$getLastTransaction = mysqli_query($mysqli, "SELECT * FROM transaction ");
+$getTransaction = mysqli_query($mysqli, "SELECT * FROM transaction WHERE vendor_id = '$user_id' ORDER BY transaction_date DESC LIMIT 10");
 
 $lastTransactionID = 0;
 while ($newLastTransaction = mysqli_fetch_array($getLastTransaction)) {
@@ -169,7 +171,7 @@ if (!isset($_GET['itemBarCodeCtrl'])) {
                                                     Select Item
                                                 </option>
                                                 <?php
-                                                $getItemForAdding = mysqli_query($mysqli, "SELECT * FROM inventory");
+                                                $getItemForAdding = mysqli_query($mysqli, "SELECT * FROM inventory WHERE vendor_id = '$user_id' ");
                                                 ?>
                                                 <?php while ($newItemsForAdding = $getItemForAdding->fetch_assoc()) : ?>
                                                     <option data-tokens="<?php echo strtoupper($newItemsForAdding['item_name']); ?>" class="" value="<?php echo $newItemsForAdding['id']; ?>">
