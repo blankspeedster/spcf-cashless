@@ -234,8 +234,8 @@ $(document).ready(() =>
                         }
                         else 
                         {
-                            $("#table_items ._btn_add_item").prop('disabled', true); 
-                            $("#table_items ._input_quantity").prop('disabled', true);
+                            $("#table_items ._btn_add_item").prop('disabled', false); 
+                            $("#table_items ._input_quantity").prop('disabled', false);
                             
                             $("#table_items ._input_id").val(""); 
                             $("#table_items ._input_quantity").val(0); 

@@ -33,6 +33,18 @@ if (!isset($_GET['itemBarCodeCtrl'])) {
 ?>
 <title>Transactions - SPCF - Cashless Program</title>
 
+<!-- Live Search -->
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="libs/bootstrap-select.min.js"></script>
+
+<script>
+    $(function () {
+        $('select').selectpicker();
+    });
+</script>
+
+<!-- CSS -->
 <link href="../css/bootstrap.min.css" rel="stylesheet" />
 <link href="../css/bootstrap-select.min.css" rel="stylesheet" />
 
@@ -95,7 +107,7 @@ if (!isset($_GET['itemBarCodeCtrl'])) {
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <form mame="transactionForm" id="transactionForm" method="post" action="process_transaction.php" @submit.prevent="checkAccountBalance">
+                        <form name="transactionForm" id="transactionForm" method="post" action="process_transaction.php" @submit.prevent="checkAccountBalance">
                             <!-- <table id="table_items_barcode" class="table" style="display: none;">
                                 <thead>
                                     <tr>
@@ -166,7 +178,8 @@ if (!isset($_GET['itemBarCodeCtrl'])) {
                                             </div>
                                         </td>
                                         <td>
-                                            <select class="form-control  select-picker _select_item" data-live-search="true">
+                                            <!-- Items using select -->
+                                            <select class="form-control select-picker _select_item" data-live-search="true">
                                                 <option selected disabled>
                                                     Select Item
                                                 </option>
@@ -179,6 +192,7 @@ if (!isset($_GET['itemBarCodeCtrl'])) {
                                                     </option>
                                                 <?php endwhile ?>
                                             </select>
+
                                         </td>
                                         <td>
                                             <input type="number" class="form-control _input_quantity" value="0" placeholder="0" disabled>
