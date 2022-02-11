@@ -40,7 +40,7 @@ if (!isset($_GET['itemBarCodeCtrl'])) {
 
 <script>
     $(function () {
-        $('select').selectpicker();
+        // $('select').selectpicker();
     });
 </script>
 
