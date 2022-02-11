@@ -8,28 +8,28 @@ $protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERV
 $getURI = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 $_SESSION['getURI'] = $getURI;
 
-$getTotalTransactions = mysqli_query($mysqli, "SELECT count(id) AS id FROM transaction WHERE DATE(`transaction_date`) = CURDATE() ");
+$getTotalTransactions = mysqli_query($mysqli, "SELECT count(id) AS id FROM transaction WHERE DATE(`transaction_date`) = CURDATE() AND vendor_id = '$user_id' ");
 $newTotalTransactions = $getTotalTransactions->fetch_array();
 //echo $newTotalTransactions['id'];
 
 $date = date_default_timezone_set('Asia/Manila');
 $date = date('Y-m-d');
 
-$getTotalTransactionsToday = mysqli_query($mysqli, "SELECT sum(amount_paid) AS total_amount_paid FROM transaction WHERE transaction_date = '$date' ");
+$getTotalTransactionsToday = mysqli_query($mysqli, "SELECT sum(amount_paid) AS total_amount_paid FROM transaction WHERE transaction_date = '$date' AND vendor_id = '$user_id' ");
 $newTotalTransactionsToday = $getTotalTransactionsToday->fetch_array();
 
-$getInventoryInStock = mysqli_query($mysqli, "SELECT count(id) AS id FROM inventory WHERE qty <= 10 ");
+$getInventoryInStock = mysqli_query($mysqli, "SELECT count(id) AS id FROM inventory WHERE qty <= 10 AND vendor_id='$user_id' ");
 $newInventoryInStock = $getInventoryInStock->fetch_array();
 
-$getAllTransactions = mysqli_query($mysqli, "SELECT * FROM transaction id ");
+$getAllTransactions = mysqli_query($mysqli, "SELECT * FROM transaction id WHERE vendor_id = '$user_id' ");
 
-$getTotalEarnings = mysqli_query($mysqli, "SELECT sum(amount_paid) AS total_earnings, sum(total_amount) AS grand_total FROM transaction WHERE DATE(`transaction_date`) = CURDATE() ");
+$getTotalEarnings = mysqli_query($mysqli, "SELECT sum(amount_paid) AS total_earnings, sum(total_amount) AS grand_total FROM transaction WHERE DATE(`transaction_date`) = CURDATE() AND vendor_id = '$user_id' ");
 
 $newTotalEarnings = $getTotalEarnings->fetch_array();
 $grandTotal = $newTotalEarnings['grand_total'] - $newTotalEarnings['total_earnings'];
 
 //Get total balance of the vendor
-$getTotalBalance = mysqli_query($mysqli, "SELECT * FROM accounts ");
+$getTotalBalance = mysqli_query($mysqli, "SELECT * FROM accounts WHERE id = '$user_id' ");
 $totalBalance = $getTotalBalance->fetch_array();
 
 ?>
@@ -47,7 +47,7 @@ $totalBalance = $getTotalBalance->fetch_array();
 
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-gray-800">Dashboard Accounting Office</h1>
+                <h1 class="h3 mb-0 text-gray-800">Dashboard Vendor</h1>
             </div>
 
             <!-- Content Row -->
@@ -146,7 +146,7 @@ $totalBalance = $getTotalBalance->fetch_array();
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="font-weight-bold text-primary text-uppercase mb-1">Total Earnings:
+                                    <div class="font-weight-bold text-primary text-uppercase mb-1">My Total Earnings:
                                     </div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
                                         <?php echo "P ".number_format($newTotalEarnings['total_earnings'],2); ?>
@@ -164,7 +164,7 @@ $totalBalance = $getTotalBalance->fetch_array();
 
 
                 <!-- Total Balance -->
-                <div class="col-xl-4 col-md6 mb-4" style="display: none;">
+                <div class="col-xl-4 col-md6 mb-4">
                     <div class="card border-left-success shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">

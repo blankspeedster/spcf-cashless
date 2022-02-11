@@ -4,14 +4,11 @@ if (!isset($_SESSION)) {
 }
 
 if (!isset($_SESSION['user_id'])) {
-    header("location: login.php");
+    header("location: ../login.php");
 }
 
-if($_SESSION['role'] == "2"){
-    header("location: ./student/index.php");
-}
-else if($_SESSION['role'] == "3"){
-    header("location: ./vendors/index.php");
+if($_SESSION['role'] == "1"){
+    header("location: ../index.php");
 }
 
 ?>
@@ -27,17 +24,17 @@ else if($_SESSION['role'] == "3"){
     <meta name="author" content="">
 
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <link rel="icon" href="img/logo.png" type="image/gif" sizes="16x16">
-    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="icon" href="../img/logo.png" type="image/gif" sizes="16x16">
+    <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 
     <!-- required libraries -->
-    <script src="libs/js/bootstrap.min.js"></script>
+    <script src="../libs/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <link href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css" rel="stylesheet">
@@ -94,7 +91,7 @@ else if($_SESSION['role'] == "3"){
             </div>
 
             <!-- Nav Item - Devices -->
-            <li class="nav-item" style="display: none;">
+            <li class="nav-item">
                 <a class="nav-link" href="inventory.php">
                     <i class="fas fa-laptop"></i>
                     <span>Inventory</span></a>
@@ -108,7 +105,7 @@ else if($_SESSION['role'] == "3"){
             </li>
 
             <!-- Nav Item - Transactions -->
-            <li class="nav-item" style="display: none;">
+            <li class="nav-item">
                 <a class="nav-link" href="transactions.php">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Transactions</span></a>
@@ -123,7 +120,7 @@ else if($_SESSION['role'] == "3"){
             </li>
 
             <!-- Nav Item - Cashout -->
-            <li class="nav-item" style="display: none;">
+            <li class="nav-item">
                 <a class="nav-link" href="cashout_initiate.php">
                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>
                     <span>Initiate Cashout</span></a>
