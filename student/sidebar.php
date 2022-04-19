@@ -84,7 +84,7 @@ if($_SESSION['role'] == "1"){
 
             <!-- Nav Item - Accounts -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="cashin.php">
                     <i class="fas fa-sign-in-alt"></i>
                     <span>Cash In</span></a>
             </li>
