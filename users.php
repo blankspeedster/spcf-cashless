@@ -268,9 +268,7 @@ $global_role_id = $_SESSION['role'];
                                                     <td><?php if ($approved) {
                                                         ?><span class="badge bg-success text-white">Validated</span><?php
                                                                                                         } else { ?> <span class="badge bg-warning text-white">Pending</span> <?php } ?></td>
-                                                    <td style="display: <?php if ($role != 1) {
-                                                                            echo "none";
-                                                                        } ?>">
+                                                    <td>
                                                         <!-- Edit-->
                                                         <a href="users.php?edit=<?php echo $user['user_id']; ?>" class="btn btn-info btn-sm"><i class="far fa-edit"></i> Edit</a>
                                                         <?php if (!$approved) { ?>
