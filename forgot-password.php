@@ -1,8 +1,8 @@
 <?php
-include("dbh.php");
+require_once 'process_login.php';
 
-if (isset($_SESSION['user_id'])) {
-    header('location: ../spcf-cashless');
+if (isset($_SESSION['email'])) {
+    header('location: index.php');
 }
 ?>
 <!DOCTYPE html>
@@ -16,15 +16,14 @@ if (isset($_SESSION['user_id'])) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SPCF - Cashless Program - Login</title>
+    <title>SPCF - Cashless Program - Forgot Password</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
+    <link rel="icon" href="img/logo.png" sizes="16x16">
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <link rel="icon" href="img/laptop.png" type="image/gif" sizes="16x16">
     <style>
         .bg-gradient-primary {
             background-color: #0f1e5d !important;
@@ -47,13 +46,13 @@ if (isset($_SESSION['user_id'])) {
                 <div class="card o-hidden border-0 shadow-lg my-5">
                     <!-- Alert Here -->
                     <?php
-                    if (isset($_SESSION['messageLogin'])) {
+                    if (isset($_SESSION['registerError'])) {
                     ?>
                         <div class="alert alert-danger alert-dismissible">
                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                             <?php
-                            echo $_SESSION['messageLogin'];
-                            unset($_SESSION['messageLogin']);
+                            echo $_SESSION['registerError'];
+                            unset($_SESSION['registerError']);
                             ?>
                         </div>
                     <?php
@@ -62,32 +61,24 @@ if (isset($_SESSION['user_id'])) {
                     <!-- End Alert Here -->
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
-                        <div class="row">>
+                        <div class="row">
                             <div class="col-lg-12">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">SPCF - Cashless Program - Login</h1>
+                                        <h1 class="h4 text-gray-900 mb-2">Forgot Your Password?</h1>
+                                        <p class="mb-4">We get it, stuff happens. Just enter your email address below and we'll send you a link to reset your password!</p>
                                     </div>
-                                    <form class="user" method="post" action="process_login.php">
+                                    <form class="user" action="process_login.php" method="POST">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="User Name" name="email" value="<?php if (isset($_GET['email'])) {
-                                                                                                                                                                    echo  $_GET['email'];
-                                                                                                                                                                } ?>">
+                                            <input type="email" class="form-control form-control" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address..." name="email" required>
                                         </div>
-                                        <div class="form-group">
-                                            <input type="password" class="form-control" placeholder="Password" name="password">
-                                        </div>
-                                        <!-- <div class="form-group">
-                                        <div class="custom-control custom-checkbox small">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck">
-                                            <label class="custom-control-label" for="customCheck">Remember Me</label>
-                                        </div>
-                                    </div> -->
-                                        <button class="btn btn-primary btn-block" type="submit" name="login">Login</button>
+                                        <button class="btn btn-primary btn-block" name="reset_password">
+                                            Reset Password
+                                        </button>
                                     </form>
-                                    <br>
+                                    <hr>
                                     <div class="text-center">
-                                        <a class="small" href="forgot-password.php">Forgot Password?</a>
+                                        <a class="small" href="login.php">Already have an account? Login!</a>
                                     </div>
                                 </div>
                             </div>
