@@ -114,6 +114,8 @@ include 'dbh.php';
 		else{
 			$getEmail = $mysqli->query(" SELECT email FROM password_reset WHERE token = '$token' LIMIT 1 ") or die ($mysqli->error);
 			$email = mysqli_fetch_assoc($getEmail)['email'];
+            $password1 = password_hash($password1, PASSWORD_DEFAULT);
+            $mysqli->query(" UPDATE accounts SET password='$password1' WHERE email='$email' ") or die ($mysqli->error);
 
 			if($email){
                 require("vendor/autoloads/phpmailer/phpmailer/src/PHPMailer.php");
