@@ -237,9 +237,7 @@ $global_role_id = $_SESSION['role'];
                                                 <th>Phone Number</th>
                                                 <th>Role</th>
                                                 <th>Validated</th>
-                                                <th style="display: <?php if ($role != 1) {
-                                                                        echo "none";
-                                                                    } ?>">Actions</th>
+                                                <th>Actions</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
