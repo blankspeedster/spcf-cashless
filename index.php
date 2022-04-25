@@ -290,7 +290,7 @@ $totalBalance = $getTotalBalance->fetch_array();
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered" id="indexTransactionTable">
+                        <table class="table table-bordered" id="cashInTransactions">
                             <thead>
                                 <tr>
                                     <th>Control ID</th>
@@ -353,6 +353,11 @@ $totalBalance = $getTotalBalance->fetch_array();
         } );
         $(document).ready(function() {
             $('#studentTab').DataTable( {
+                "pageLength": 25
+            } );
+        } );    
+        $(document).ready(function() {
+            $('#cashInTransactions').DataTable( {
                 "pageLength": 25
             } );
         } );        
