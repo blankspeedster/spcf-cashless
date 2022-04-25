@@ -313,7 +313,7 @@ $totalBalance = $getTotalBalance->fetch_array();
                                         $full_name = $first_name." ".$last_name;
                                     ?>
                                 <tr>
-                                    <td><a href="view_transaction.php?id=<?php echo $transcations['id']; ?>" target="_blank"><?php echo $transcations['id']; ?></a></td>
+                                    <td><?php echo $transction_id; ?></td>
                                     <td><?php echo $transcations['created_at']; ?></td>
                                     <td><?php echo $full_name; ?></td>
                                     <td><?php echo $transcations['phone_number']; ?></td>
