@@ -129,9 +129,17 @@ else if($_SESSION['role'] == "3"){
                     <span>Initiate Cashout</span></a>
             </li>
 
+            <!-- Nav Item - Reports -->
+            <li class="nav-item">
+                <a class="nav-link" href="report.php">
+                <i class="fas fa-fw fa-table"></i>
+                    <span>Sales Report</span>
+            </li>
+
+
 
             <!-- Nav Item - Reports -->
-            <li class="nav-item" style="display: <?php if($_SESSION['role']==3){echo "none;";} ?>;">
+            <li class="nav-item" style="display: none">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Reports</span>

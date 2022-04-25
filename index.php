@@ -52,8 +52,35 @@ $totalBalance = $getTotalBalance->fetch_array();
 
             <!-- Content Row -->
             <div class="row">
-                <!-- Total Transactions -->
+                <!-- Total Balance -->
+                <?php
+                    $getBalance = mysqli_query($mysqli, "SELECT * FROM accounts WHERE id =  '$user_id' ");
+                    $newBalance = mysqli_fetch_array($getBalance);
+                    $balance = $newBalance["balance"];
+                ?>
                 <div class="col-xl-4 col-md6 mb-4">
+                    <div class="card border-left-warning shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="font-weight-bold text-primary text-uppercase mb-1">Total Balance:
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        <?php echo "P ".number_format($balance, 2); ?>
+                                    </div>
+                                    <!-- End Progress -->
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-file-invoice fa-5x text-warning"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Total Balance -->
+
+            <!-- Total Transactions -->
+                <div class="col-xl-4 col-md6 mb-4" style="display: none;"> 
                     <div class="card border-left-warning shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
@@ -253,6 +280,64 @@ $totalBalance = $getTotalBalance->fetch_array();
                 </div>
             </div>
             <!-- End Student Employees -->
+            <?php
+                $cash_in_transaction = mysqli_query($mysqli, "SELECT *, t.id AS transaction_id FROM transaction_logs t  JOIN accounts a ON a.id = t.account_id WHERE t.account_id = '$user_id' ORDER BY created_at DESC ");
+            ?>
+            <!-- Transaction Logs -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">List of Cash in and Cash out Transactions</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="indexTransactionTable">
+                            <thead>
+                                <tr>
+                                    <th>Control ID</th>
+                                    <th>Date</th>
+                                    <th>Full Name</th>
+                                    <th>Phone Number</th>
+                                    <th>Kind</th>
+                                    <th>Total Amount</th>
+                                    <th>Current Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    <?php
+                                        while($transcations = $cash_in_transaction->fetch_assoc()){
+                                        $transction_id = $transcations["transaction_id"];
+                                        $get_full_name = mysqli_query($mysqli, "SELECT *, t.id AS transaction_id FROM transaction_logs t JOIN accounts a ON a.id = t.vendor_id WHERE t.id = '$transction_id' ");
+                                        $new_full_name = mysqli_fetch_assoc($get_full_name);
+                                        $first_name = $new_full_name['first_name'];
+                                        $last_name = $new_full_name['last_name'];
+                                        $full_name = $first_name." ".$last_name;
+                                    ?>
+                                <tr>
+                                    <td><a href="view_transaction.php?id=<?php echo $transcations['id']; ?>" target="_blank"><?php echo $transcations['id']; ?></a></td>
+                                    <td><?php echo $transcations['created_at']; ?></td>
+                                    <td><?php echo $full_name; ?></td>
+                                    <td><?php echo $transcations['phone_number']; ?></td>
+                                    <td>
+                                        <?php
+                                        if($transcations['kind'] == 'cashin'){
+                                            echo "<a style='color: green;'>".strtoupper($transcations['kind'])."</a>";
+                                        }
+                                        else{
+                                            echo "<a style='color: red;'>".strtoupper($transcations['kind'])."</a>";
+                                        }
+                                        ?>
+                                    </td>
+                                    <td><?php echo '₱'.number_format($transcations['amount'],2); ?></td>
+                                    <td><?php echo '₱'.number_format($transcations['current_balance'],2); ?></td>
+                                </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- End Student Employees -->
+
 
         </div>
         <!-- /.container-fluid -->

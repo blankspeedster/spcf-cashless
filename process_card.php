@@ -57,8 +57,87 @@
         $mysqli->query("INSERT INTO transaction_logs (account_id, kind, amount, created_at, current_balance) VALUES('$user_id', 'cashin','$amount', '$currentDateTime', '$newAmount') ") 
         or die(mysqli_error($mysqli));
 
-        $_SESSION['msg_type'] = "success";
-        $_SESSION['message'] = "Cash in successful!";
+
+        //Insert to transction logs for accounting
+        //Set Balance of the accounting
+        $accounting_id = $_SESSION['user_id'];
+        $getBalance = mysqli_query($mysqli, "SELECT * FROM accounts WHERE id =  '$user_id' ");
+        $newBalance = $getBalance->fetch_array();
+        $balance = $newBalance["balance"];
+        $new_balance = $balance - $amount;
+
+        $mysqli->query("INSERT transaction_logs (account_id, vendor_id, kind, amount, current_balance) VALUES ('$accounting_id', '$user_id', 'cashout', '$amount', '$new_balance' )") or die(mysqli_error($mysqli));
+
+        $mysqli->query("UPDATE accounts SET balance = '$new_balance' WHERE id = '$accounting_id' ") or die(mysqli_error($mysqli));
+        //End insert transaction logs from accounting
+
+        //Add Balance send email
+        $getEmail = $mysqli->query(" SELECT email FROM accounts WHERE id = '$user_id' ") or die ($mysqli->error);
+        $email = mysqli_fetch_assoc($getEmail)['email'];
+
+        if($email){
+            require("vendor/autoloads/phpmailer/phpmailer/src/PHPMailer.php");
+            require("vendor/autoloads/phpmailer/phpmailer/src/SMTP.php");
+            $mail = new PHPMailer\PHPMailer\PHPMailer();
+
+            $mail->CharSet =  "utf-8";
+            $mail->IsSMTP();
+            // enable SMTP authentication
+            $mail->SMTPAuth = true;                  
+            // GMAIL username
+            $mail->Username = "pauline@spcf.edu.ph";
+            // GMAIL password
+            $mail->Password = "Ccispauline";
+            $mail->SMTPSecure = "ssl";  
+            // sets GMAIL as the SMTP server
+            $mail->Host = "smtp.gmail.com";
+            // set the SMTP port for the GMAIL server
+            $mail->Port = "465";
+            $mail->From='pauline@spcf.edu.ph';
+            $mail->FromName='SPCF Cashless Application';
+            $mail->AddAddress($email, '');
+            $mail->Subject  =  'Cash in notice';
+            $mail->IsHTML(true);
+            $mail->Body    = 'This is a notice that your manual cash in process request was succesful. The amount is: '.$amount.' pesos';
+            if($mail->Send())
+            {
+                $_SESSION['msg_type'] = "success";
+                $_SESSION['message'] = "Cash in successful!";
+            }
+
+            header('location: index.php');
+        }
+        else{
+            require("vendor/autoloads/phpmailer/phpmailer/src/PHPMailer.php");
+            require("vendor/autoloads/phpmailer/phpmailer/src/SMTP.php");
+            $mail = new PHPMailer\PHPMailer\PHPMailer();
+
+            $mail->CharSet =  "utf-8";
+            $mail->IsSMTP();
+            // enable SMTP authentication
+            $mail->SMTPAuth = true;                  
+            // GMAIL username
+            $mail->Username = "pauline@spcf.edu.ph";
+            // GMAIL password
+            $mail->Password = "Ccispauline";
+            $mail->SMTPSecure = "ssl";  
+            // sets GMAIL as the SMTP server
+            $mail->Host = "smtp.gmail.com";
+            // set the SMTP port for the GMAIL server
+            $mail->Port = "465";
+            $mail->From='pauline@spcf.edu.ph';
+            $mail->FromName='SPCF Cashless Application';
+            $mail->AddAddress($email, '');
+            $mail->Subject  =  'Cash in notice';
+            $mail->IsHTML(true);
+            $mail->Body    = 'This is a notice that your manual cash in process request was succesful. The amount is: '.$amount;
+            if($mail->Send())
+            {
+                $_SESSION['msg_type'] = "success";
+                $_SESSION['message'] = "Cash in successful!";
+            }
+        }
+
         header("location: add_card.php?id=".$user_id);
     }
 

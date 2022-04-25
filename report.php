@@ -136,11 +136,11 @@ GROUP by i.id ");
         <li class="nav-item">
             <a class="nav-link" href="report.php">
                 <i class="fas fa-fw fa-table"></i>
-                <span>Daily Sales Report</span></a>
+                <span>Sales Report</span></a>
         </li>
 
         <!-- Nav Item - Charts -->
-        <li class="nav-item">
+        <li class="nav-item" style="display: none;">
             <a class="nav-link" href="report_earnings.php">
                 <i class="fas fa-fw fa-table"></i>
                 <span>DSR with Earnings</span></a>

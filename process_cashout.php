@@ -50,6 +50,17 @@
         
         $mysqli->query("UPDATE accounts SET balance = '$current_balance' WHERE id = '$vendor_id' ") or die(mysqli_error($mysqli));
 
+        //Set Balance of the accounting
+        $user_id = $_SESSION['user_id'];
+        $getBalance = mysqli_query($mysqli, "SELECT * FROM accounts WHERE id =  '$user_id' ");
+        $newBalance = $getBalance->fetch_array();
+        $balance = $newBalance["balance"];
+        $new_balance = $balance + $request_amount;
+
+        $mysqli->query("INSERT transaction_logs (account_id, vendor_id, kind, amount, current_balance) VALUES ('$user_id', '$vendor_id', 'cashin', '$request_amount', '$new_balance' )") or die(mysqli_error($mysqli));
+
+        $mysqli->query("UPDATE accounts SET balance = '$new_balance' WHERE id = '$user_id' ") or die(mysqli_error($mysqli));
+
         $_SESSION['message']    = "Request has been updated!";
         $_SESSION['msg_type']   = "success";
         header('location: cashout.php');
