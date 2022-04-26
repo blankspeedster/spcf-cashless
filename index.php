@@ -252,7 +252,7 @@ $totalBalance = $getTotalBalance->fetch_array();
                                     <th>Control ID</th>
                                     <th>Date</th>
                                     <th>Full Name</th>
-                                    <th>Full Name</th>
+                                    <th>Phone Number</th>
                                     <th>Total Amount</th>
                                     <th>Total Paid</th>
                                     <!-- <th style="display: none;">Balance</th> -->
