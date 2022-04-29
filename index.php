@@ -247,10 +247,10 @@ $totalBalance = $getTotalBalance->fetch_array();
                                         <td>
                                             <?php
                                             echo $transcations["vendor_id"];
-                                            if ($transcations["vendor_id"] == '20') {
+                                            if ($transcations["vendor_id"] == '27') {
                                                 echo "Maria Pauline";
                                             }
-                                            else if($transcations["vendor_id"] == '23'){
+                                            else if($transcations["vendor_id"] == '28'){
                                                 echo "Aling Nena Sari Sari";
                                             }
                                             ?>
