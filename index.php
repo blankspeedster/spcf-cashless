@@ -84,7 +84,7 @@ $totalBalance = $getTotalBalance->fetch_array();
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="font-weight-bold text-danger text-uppercase mb-1">Total Cashout as of Date:
+                                    <div class="font-weight-bold text-danger text-uppercase mb-1">Total Cashin as of Date:
                                     </div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
                                         <?php echo '₱ ' . number_format($cashOutTransaction['total_amount'], 2); ?>
@@ -108,7 +108,7 @@ $totalBalance = $getTotalBalance->fetch_array();
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="font-weight-bold text-success text-uppercase mb-1">Total Cashin as of Date:
+                                    <div class="font-weight-bold text-success text-uppercase mb-1">Total Cashout as of Date:
                                     </div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
                                         <?php echo '₱ ' . number_format($cashInTransaction['total_amount'], 2); ?>
@@ -202,7 +202,7 @@ $totalBalance = $getTotalBalance->fetch_array();
             ?>
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">List of Cash in</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">List of Cash Out</h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -261,7 +261,7 @@ $totalBalance = $getTotalBalance->fetch_array();
             ?>
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">List of Cash Out</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">List of Cash In</h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
