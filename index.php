@@ -214,7 +214,7 @@ $totalBalance = $getTotalBalance->fetch_array();
                                     <!-- <th>Date Initiated</th> -->
                                     <th>Full Name</th>
                                     <th>Phone Number</th>
-                                    <th>Type</th>
+                                    <th>Vendor</th>
                                     <th>Date Completed</th>
                                     <th>Amount</th>
                                 </tr>
@@ -240,11 +240,22 @@ $totalBalance = $getTotalBalance->fetch_array();
                                 ?>
                                     <tr>
                                         <td><?php echo $transction_id; ?></td>
-                                        <!-- <td><?php //echo $reference_number; ?></td> -->
-                                        <!-- <td><?php //echo $transcations['created_at']; ?></td> -->
-                                        <td><?php echo $full_name; ?></td>
+                                        <!-- <td><?php //echo $reference_number; 
+                                                    ?></td> -->
+                                        <!-- <td><?php //echo $transcations['created_at']; 
+                                                    ?></td> -->
+                                        <td>
+                                            <?php
+                                            if ($transcations["account_id"] == '20') {
+                                                echo "Maria Pauline";
+                                            }
+                                            else if($transcations["account_id"] == '23'){
+                                                echo "Aling Nena Sari Sari";
+                                            }
+                                            ?>
+                                        </td>
                                         <td><?php echo $transcations['phone_number']; ?></td>
-                                        <td><?php echo "Vendor"; ?></td>
+                                        <td><?php echo $full_name; ?></td>
                                         <td><?php echo $transcations['updated_at']; ?></td>
                                         <td><?php echo '₱' . number_format($transcations['amount'], 2); ?></td>
                                     </tr>
