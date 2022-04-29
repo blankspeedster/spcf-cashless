@@ -60,7 +60,7 @@ $totalBalance = $getTotalBalance->fetch_array();
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="font-weight-bold text-primary text-uppercase mb-1">Total Balance:
+                                    <div class="font-weight-bold text-primary text-uppercase mb-1">Current balance  as of Date:
                                     </div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
                                         <?php echo '₱ ' . number_format($totalTransaction['total_amount'], 2); ?>
