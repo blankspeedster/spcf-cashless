@@ -176,9 +176,9 @@ $totalBalance = $getTotalBalance->fetch_array();
                                         <td>
                                             <?php
                                             if ($transcations['kind'] == 'cashin') {
-                                                echo "<a style='color: green;'>" . strtoupper($transcations['kind']) . "</a>";
+                                                echo "<a style='color: green;'>" . strtoupper('CASHOUT') . "</a>";
                                             } else {
-                                                echo "<a style='color: red;'>" . strtoupper($transcations['kind']) . "</a>";
+                                                echo "<a style='color: red;'>" . strtoupper('CASHIN') . "</a>";
                                             }
                                             ?>
                                         </td>
