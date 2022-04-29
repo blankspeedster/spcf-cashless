@@ -211,8 +211,8 @@ $totalBalance = $getTotalBalance->fetch_array();
                                 <tr>
                                     <th>Control ID</th>
                                     <th>Reference Number</th>
-                                    <th>Full Name</th>
                                     <th>Date Initiated</th>
+                                    <th>Full Name</th>
                                     <th>Phone Number</th>
                                     <th>Vendor</th>
                                     <th>Date Completed</th>
