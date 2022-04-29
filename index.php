@@ -56,9 +56,9 @@ $totalBalance = $getTotalBalance->fetch_array();
                 $totalTransaction = $getTotalTransaction->fetch_array();
                 $getCashOut = mysqli_query($mysqli, "SELECT sum(amount) AS total_amount FROM transaction_logs WHERE DATE(`updated_at`) = CURDATE() AND kind = 'cashout' ");
                 $cashOut = $getCashOut->fetch_array();
-                echo $totalTransaction['total_amount'];
-                echo "<br>";
-                echo $cashOut['total_amount'];
+                // echo $totalTransaction['total_amount'];
+                // echo "<br>";
+                // echo $cashOut['total_amount'];
                 $currentBalance = $totalTransaction['total_amount'] - $cashOut['total_amount'];
                 ?>
                 <div class="col-xl-4 col-md6 mb-4">
