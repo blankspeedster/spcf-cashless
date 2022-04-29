@@ -107,11 +107,11 @@ else if($_SESSION['role'] == "3"){
                     <span>Users</span></a>
             </li>
 
-            <li class="nav-item" style="display: <?php if($_SESSION['role']==3){echo "none;";} ?>;">
+            <!-- <li class="nav-item" style="display: <?php if($_SESSION['role']==3){echo "none;";} ?>;">
                 <a class="nav-link" href="all_transactions.php">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Cash In and Cash Out Transactions</span></a>
-            </li>
+            </li> -->
 
             <!-- Nav Item - Transactions -->
             <li class="nav-item" style="display: none;">
