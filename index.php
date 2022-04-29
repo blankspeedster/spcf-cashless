@@ -143,7 +143,7 @@ $totalBalance = $getTotalBalance->fetch_array();
                                     <th>Full Name</th>
                                     <!-- <th>Phone Number</th> -->
                                     <th>Type</th>
-                                    <th>Total Amount</th>
+                                    <th>Amount</th>
                                     <!-- <th>Date Completed</th> -->
                                     <!-- <th>Current Balance</th> -->
                                 </tr>
@@ -211,11 +211,11 @@ $totalBalance = $getTotalBalance->fetch_array();
                                 <tr>
                                     <th>Control ID</th>
                                     <!-- <th>Reference Number</th> -->
-                                    <th>Date Initiated</th>
+                                    <!-- <th>Date Initiated</th> -->
                                     <th>Full Name</th>
                                     <th>Phone Number</th>
                                     <th>Date Completed</th>
-                                    <th>Total Amount</th>
+                                    <th>Amount</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -240,7 +240,7 @@ $totalBalance = $getTotalBalance->fetch_array();
                                     <tr>
                                         <td><?php echo $transction_id; ?></td>
                                         <!-- <td><?php //echo $reference_number; ?></td> -->
-                                        <td><?php echo $transcations['created_at']; ?></td>
+                                        <!-- <td><?php //echo $transcations['created_at']; ?></td> -->
                                         <td><?php echo $full_name; ?></td>
                                         <td><?php echo $transcations['phone_number']; ?></td>
                                         <td><?php echo $transcations['updated_at']; ?></td>
@@ -274,7 +274,7 @@ $totalBalance = $getTotalBalance->fetch_array();
                                     <th>Full Name</th>
                                     <th>Phone Number</th>
                                     <th>Date Completed</th>
-                                    <th>Total Amount</th>
+                                    <th>Amount</th>
                                 </tr>
                             </thead>
                             <tbody>
