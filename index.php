@@ -52,8 +52,14 @@ $totalBalance = $getTotalBalance->fetch_array();
             <div class="row">
                 <!-- Total Transactions -->
                 <?php
-                $getTotalTransaction = mysqli_query($mysqli, "SELECT sum(amount) AS total_amount FROM transaction_logs WHERE DATE(`updated_at`) = CURDATE() ");
+                $getTotalTransaction = mysqli_query($mysqli, "SELECT sum(amount) AS total_amount FROM transaction_logs WHERE DATE(`updated_at`) = CURDATE() AND kind = 'cashin' ");
                 $totalTransaction = $getTotalTransaction->fetch_array();
+                $getCashOut = mysqli_query($mysqli, "SELECT sum(amount) AS total_amount FROM transaction_logs WHERE DATE(`updated_at`) = CURDATE() AND kind = 'cashout' ");
+                $cashOut = $getCashOut->fetch_array();
+                echo $totalTransaction['total_amount'];
+                echo "<br>";
+                echo $cashOut['total_amount'];
+                $currentBalance = $totalTransaction['total_amount'] - $cashOut['total_amount'];
                 ?>
                 <div class="col-xl-4 col-md6 mb-4">
                     <div class="card border-left-warning shadow h-100 py-2">
@@ -63,7 +69,7 @@ $totalBalance = $getTotalBalance->fetch_array();
                                     <div class="font-weight-bold text-primary text-uppercase mb-1">Current balance as of Date:
                                     </div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                        <?php echo '₱ ' . number_format($totalTransaction['total_amount'], 2); ?>
+                                        <?php echo '₱ ' . number_format($currentBalance, 2); ?>
                                     </div>
                                     <!-- End Progress -->
                                 </div>
