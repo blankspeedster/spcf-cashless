@@ -57,7 +57,7 @@
         $balance = $newBalance["balance"];
         $new_balance = $balance + $request_amount;
 
-        $mysqli->query("INSERT transaction_logs (account_id, vendor_id, kind, amount, current_balance) VALUES ('$user_id', '$vendor_id', 'cashin', '$request_amount', '$new_balance' )") or die(mysqli_error($mysqli));
+        $mysqli->query("INSERT transaction_logs (account_id, vendor_id, kind, amount, current_balance, updated_at) VALUES ('$user_id', '$vendor_id', 'cashin', '$request_amount', '$new_balance', '$date' )") or die(mysqli_error($mysqli));
 
         $mysqli->query("UPDATE accounts SET balance = '$new_balance' WHERE id = '$user_id' ") or die(mysqli_error($mysqli));
 
