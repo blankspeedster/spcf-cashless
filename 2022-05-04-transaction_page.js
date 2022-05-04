@@ -228,17 +228,13 @@ $(document).ready(() =>
     
                         if(res.success)
                         {
-                            console.log(res.item);
                             $("#table_items ._input_quantity").prop('disabled', false);                                                         
-                            $("#table_items ._input_id").val(res.item.id);
-                            $("#table_items ._input_price").val(res.item.item_price);
-
-                            $("#table_items ._input_quantity").prop('max', res.item.qty);
-
+                            $("#table_items ._input_id").val(res.item.id); 
+                            $("#table_items ._input_price").val(res.item.item_price); 
                         }
                         else 
                         {
-                            $("#table_items ._btn_add_item").prop('disabled', false);
+                            $("#table_items ._btn_add_item").prop('disabled', false); 
                             $("#table_items ._input_quantity").prop('disabled', false);
                             
                             $("#table_items ._input_id").val(""); 

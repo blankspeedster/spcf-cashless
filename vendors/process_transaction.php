@@ -172,8 +172,6 @@ if(isset($_POST['add_item_barcode']))
         //update total balance
         $mysqli->query("UPDATE accounts SET balance = '$newBalance' WHERE id = '$user_id'");
 
-
-
         $_SESSION['message']    = "Transaction has been saved!";
         $_SESSION['msg_type']   = "success";
         // header('location: print_transaction.php?id='.$transactionID);
